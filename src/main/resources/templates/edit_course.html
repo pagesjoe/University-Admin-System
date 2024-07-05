@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit student</title>
+</head>
+<body>
+    <!--Navbar Section-->
+    <div th:insert="navbar"></div>
+
+    <div class="container">
+		<h1 class="text-center">Edit Course</h1>
+		<br>
+		<form th:object="${course}" th:action="@{/course/submit}" method="post">
+			<input type="hidden" th:field="*{id}">
+	
+            <div class="form-group">
+                    <label>Subject</label>
+                    <input class="form-control" th:field="*{subject}" required>
+            </div>
+            <br>
+            <div class="form-group">
+                    <label>Code</label>
+                    <input class="form-control" th:field="*{code}" required>
+            </div>
+            <br>
+            <div class="form-group">
+                    <label>Description</label>
+                    <input class="form-control" th:field="*{description}" required>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Update</button>
+		</form>
+	</div>
+</body>
+</html>

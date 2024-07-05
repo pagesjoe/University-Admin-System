@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student grades</title>
+</head>
+<body>
+    <!--Navbar Section-->
+    <div th:insert="navbar"></div>
+
+    <h1 class="text-center">Grades</h1>
+    <p class="text-center" th:text="${student.name}"></p>
+	<br>
+	
+	<div class="text-center">
+		<a th:href="@{/student/addgrade(id=${student.id})}">
+            <button class ="btn btn-primary" type="button">Add Grade</button>
+        </a>
+	</div>
+	
+	<br>
+
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-primary d-flex justify-content-evenly">
+                <tr>
+                    <th>Subject</th>
+                    <th>Code</th>
+                    <th>Grade</th>
+                    <th>Actions</th>
+                </tr>
+                
+                <tr th:each="grade : ${grades}">
+                    <td th:text="${grade.course.subject}"></td>
+                    <td th:text="${grade.course.code}"></td>
+                    <td th:text="${grade.score}"></td>
+                    <td>
+                        <div>
+                            <form th:action="@{/grade/edit}" method="get">
+                                <input type="hidden" name="studentId" th:value="${student.id}">
+                                <input type="hidden" name="courseId" th:value="${grade.course.id}">
+                                <button type="submit" class="btn btn-warning">Edit Grade</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            
+            </table>
+            <p th:if="${#sets.isEmpty(grades)}" class="text-center">No current grades</p>
+        </div>
+    </div>
+	
+</body>
+</html>

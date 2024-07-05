@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add grade</title>
+</head>
+<body>
+    <!--Navbar Section-->
+    <div th:insert="navbar"></div>
+
+    <h2 class="text-center">Add Grade</h2>
+    <p class="text-center" th:text="${student.name}"></p>
+
+    <div class="container">
+        <form th:action="@{/student/addgrade}" method="post">
+            <input type="hidden" name="studentId" th:value="${student.id}">
+            Choose Course
+            <br>
+            <select name="courseId" class="form-control">
+                <option th:each="course : ${courses}" th:value="${course.id}"
+                    th:text="${course.subject} + '  ' + ${course.code}"></option>
+            </select>
+            <br>
+            Score
+            <br>
+            <input type="text" name="score">
+            <br> <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

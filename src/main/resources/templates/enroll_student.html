@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enroll</title>
+</head>
+<body>
+    <!--Navbar Section-->
+    <div th:insert="navbar"></div>
+
+    <h2 class="text-center">Enroll student</h2>
+    <p class="text-center" th:text="${student.name}"></p>
+
+    <div class="container">
+        <form th:action="@{/student/enroll}" method="post">
+            <input type="hidden" name="studentId" th:value="${student.id}">
+            <br>
+            <!-- <div class="form-control"> -->
+                <select name="courseId" class="form-control">
+                    <option th:each="course : ${courses}" th:value="${course.id}"
+                        th:text="${course.subject} + '  ' + ${course.code}"></option>
+                </select>
+            <!-- </div> -->
+            <br>
+            <button type="submit" class="btn btn-primary">Enroll</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assigned courses</title>
+</head>
+<body>
+    <!--Navbar Section-->
+    <div th:insert="navbar"></div>
+
+    <h1 class="text-center">Assigned courses</h1>
+    <p class="text-center" th:text="${instructor.name}"></p>
+	<br>
+	
+	<div class="text-center">
+		<a th:href="@{/instructor/assign(id=${instructor.id})}">
+            <button class ="btn btn-primary" type="button">Assign to course</button>
+        </a>
+	</div>
+	
+	<br>
+
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-primary d-flex justify-content-evenly">
+                <tr>
+                    <th>Subject</th>
+                    <th>Code</th>
+                    <th>Description</th>
+                </tr>
+                
+                <tr th:each="course : ${courses}">
+                    <td th:text="${course.subject}"></td>
+                    <td th:text="${course.code}"></td>
+                    <td th:text="${course.description}"></td>
+                </tr>
+            
+            </table>
+            <p th:if="${#sets.isEmpty(courses)}" class="text-center">No enrolled courses</p>
+        </div>
+    </div>
+	
+</body>
+</html>

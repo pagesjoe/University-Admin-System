@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add</title>
+</head>
+<body>
+    <!--Navbar Section-->
+    <div th:insert="navbar"></div>
+
+    <div class="container">
+		<h1 class="text-center">Add Course</h1>
+		<br>
+		<form th:action="@{/course/submit}" method="post">
+			<div class="form-group">
+			    <label>Subject</label>
+			    <input name="subject" class="form-control" placeholder="Subject" required>
+		  </div>
+          <br>
+		  <div class="form-group">
+			    <label>Code</label>
+			    <input name="code" class="form-control" placeholder="Code" required>
+		  </div>
+          <br>
+		  <div class="form-group">
+			    <label>Description</label>
+			    <input name="description" class="form-control" placeholder="Description" required>
+		  </div>
+		  <br>
+		  <button type="submit" class="btn btn-primary">Add</button>
+		</form>
+	</div>
+</body>
+</html>

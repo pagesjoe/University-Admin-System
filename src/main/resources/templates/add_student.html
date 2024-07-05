@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--Navbar Section-->
+    <div th:insert="navbar"></div>
+
+    <div class="container">
+		<h1 class="text-center">Add Student</h1>
+		<br>
+		<form th:action="@{/student/submit}" method="post">
+			<!-- <input type="hidden" name="command" value="add"> -->
+			<div class="form-group">
+			    <label>Name</label>
+			    <input name="name" class="form-control" placeholder="Name" required>
+		  </div>
+          <br>
+		  <div class="form-group">
+			    <label>Birthdate</label>
+			    <input name="birthdate" type="date" class="form-control" placeholder="Birthdate" required>
+		  </div>
+		  <br>
+		  <button type="submit" class="btn btn-primary">Add</button>
+		</form>
+	</div>
+</body>
+</html>
