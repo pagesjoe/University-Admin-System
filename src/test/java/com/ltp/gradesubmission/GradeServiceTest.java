@@ -14,16 +14,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.ltp.gradesubmission.entity.Course;
-import com.ltp.gradesubmission.entity.Grade;
-import com.ltp.gradesubmission.entity.Student;
-import com.ltp.gradesubmission.repository.CourseRepository;
-import com.ltp.gradesubmission.repository.GradeRepository;
-import com.ltp.gradesubmission.repository.StudentRepository;
-import com.ltp.gradesubmission.service.CourseService;
-import com.ltp.gradesubmission.service.GradeService;
-import com.ltp.gradesubmission.service.GradeServiceImpl;
-import com.ltp.gradesubmission.service.StudentService;
+import com.joe.universityadminsystem.entity.Course;
+import com.joe.universityadminsystem.entity.Grade;
+import com.joe.universityadminsystem.entity.Student;
+import com.joe.universityadminsystem.repository.CourseRepository;
+import com.joe.universityadminsystem.repository.GradeRepository;
+import com.joe.universityadminsystem.repository.StudentRepository;
+import com.joe.universityadminsystem.service.CourseService;
+import com.joe.universityadminsystem.service.GradeService;
+import com.joe.universityadminsystem.service.GradeServiceImpl;
+import com.joe.universityadminsystem.service.StudentService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GradeServiceTest {
