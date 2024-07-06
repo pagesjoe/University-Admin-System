@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.joe.universityadminsystem.entity.Course;
+import com.joe.universityadminsystem.entity.Grade;
 import com.joe.universityadminsystem.entity.Student;
 import com.joe.universityadminsystem.exception.StudentNotFoundException;
 import com.joe.universityadminsystem.repository.StudentRepository;
@@ -69,6 +70,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
 
+
     @Override
     public Student unwrapStudent(Optional<Student> student, int studentId){
         if(student.isPresent()){
@@ -77,11 +79,14 @@ public class StudentServiceImpl implements StudentService {
         throw new StudentNotFoundException(studentId);
     }
 
+
+
     @Override
     public Set<Course> getEnrolledCourses(int id) {
         Student student = getStudent(id);
         return student.getCourses();
     }
+
 
 
 

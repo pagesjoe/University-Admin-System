@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ import com.joe.universityadminsystem.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 
@@ -55,12 +57,12 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public String postRegister(User user, @RequestParam String role, Model model) {
+    public String postRegister(@Valid User user, BindingResult result, Model model) {
         
         // If validation errors found
-        // if(result.hasErrors()){
-        //     return "register_form";
-        // }
+        if(result.hasErrors()){
+            return "register";
+        }
 
         // If username already exists
         if(userService.existsByUsername(user)){
@@ -68,15 +70,8 @@ public class UserController {
             return "register";
         }
 
-        //If email already exists
-        // if(userService.existsByEmail(user.getEmail())){
-        //     Boolean emailExists = true;
-        //     model.addAttribute("emailExists", emailExists);
-        //     return "register_form";
-        // }
-
         //Register user
-        userService.registerUser(user, role);
+        userService.registerUser(user);
 
         return "redirect:/user/login";
     }

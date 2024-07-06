@@ -1,4 +1,4 @@
-package com.ltp.gradesubmission;
+package com.joe.universityadminsystem;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;

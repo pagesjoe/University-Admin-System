@@ -42,7 +42,7 @@ public class SecurityConfiguration {
         http
             .securityMatcher("/**")
             .authorizeHttpRequests(configurer -> configurer
-                .requestMatchers("/user/**").permitAll()
+                .requestMatchers("/user/**", "/error").permitAll()
                 .requestMatchers("/**").hasRole("ADMIN")
             )
             .formLogin(form -> form

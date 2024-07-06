@@ -12,24 +12,30 @@
     <div class="container">
 		<h1 class="text-center">Edit Course</h1>
 		<br>
-		<form th:object="${course}" th:action="@{/course/submit}" method="post">
+		<form th:object="${course}" th:action="@{/course/submitedit}" method="post">
 			<input type="hidden" th:field="*{id}">
 	
             <div class="form-group">
                     <label>Subject</label>
                     <input class="form-control" th:field="*{subject}" required>
             </div>
+            <div th:if="${#fields.hasErrors('subject')}"><p style="color: red;" th:errors="*{subject}"></p></div>
             <br>
+
             <div class="form-group">
                     <label>Code</label>
                     <input class="form-control" th:field="*{code}" required>
             </div>
+            <div th:if="${#fields.hasErrors('code')}"><p style="color: red;" th:errors="*{code}"></p></div>
             <br>
+
             <div class="form-group">
                     <label>Description</label>
                     <input class="form-control" th:field="*{description}" required>
             </div>
+            <div th:if="${#fields.hasErrors('description')}"><p style="color: red;" th:errors="*{description}"></p></div>
             <br>
+
             <button type="submit" class="btn btn-primary">Update</button>
 		</form>
 	</div>

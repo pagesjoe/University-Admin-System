@@ -29,7 +29,11 @@
 
             <div class="form-group">
                 <label>Score</label>
-                <input class="form-control" th:field="*{score}" required>
+                <select name="score" class="form-control">
+                    <option th:text="*{score}" th:value="*{score}" selected></option>
+                    <option th:each="score : ${scores}" th:value="${score}"
+                        th:text="${score}"></option>
+                </select>
             </div>
             <br>
             <button type="submit" class="btn btn-primary">Update</button>

@@ -12,7 +12,7 @@
     <div class="container">
 		<h1 class="text-center">Edit Student</h1>
 		<br>
-		<form th:object="${student}" th:action="@{/student/submit}" method="post">
+		<form th:object="${student}" th:action="@{/student/submitedit}" method="post">
 			<input type="hidden" name="command" value="update">
 			<input type="hidden" th:field="*{id}">
 	
@@ -20,13 +20,16 @@
                     <label>Name</label>
                     <input class="form-control" th:field="*{name}" required>
             </div>
+            <div th:if="${#fields.hasErrors('name')}"><p style="color: red;" th:errors="*{name}"></p></div>
             <br>
+
             <div class="form-group">
                     <label>Birthdate</label>
                     <input type="date" class="form-control" name="birthdate" 
                     th:value="*{birthdate}" required>
             </div>
             <br>
+
             <button type="submit" class="btn btn-primary">Update</button>
 		</form>
 	</div>

@@ -12,7 +12,9 @@
     <h2 class="text-center">Add Grade</h2>
     <p class="text-center" th:text="${student.name}"></p>
 
-    <div class="container">
+    <div th:if="${#sets.isEmpty(courses)}"><p style="text-align: center;">The student has no ungraded courses</p></div>
+
+    <div th:unless="${#sets.isEmpty(courses)}" class="container">
         <form th:action="@{/student/addgrade}" method="post">
             <input type="hidden" name="studentId" th:value="${student.id}">
             Choose Course
@@ -22,10 +24,15 @@
                     th:text="${course.subject} + '  ' + ${course.code}"></option>
             </select>
             <br>
+
             Score
             <br>
-            <input type="text" name="score">
+            <select name="score" class="form-control">
+                <option th:each="score : ${scores}" th:value="${score}"
+                    th:text="${score}"></option>
+            </select>
             <br> <br>
+
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>

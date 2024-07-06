@@ -16,6 +16,8 @@ import com.joe.universityadminsystem.repository.UserRepository;
 import com.joe.universityadminsystem.service.AuthorityService;
 import com.joe.universityadminsystem.service.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @AllArgsConstructor
-public class RegisterController {
+public class UserApiController {
 
     UserService userService;
     UserRepository userRepository;
@@ -35,40 +37,24 @@ public class RegisterController {
 
 
     @PostMapping("/api/register")
-    public ResponseEntity<User> postRegister(@RequestBody User user, @RequestParam String role) {
+    @Operation(summary = "Register user")
+    public ResponseEntity<Object> postRegister(@Valid @RequestBody User user,BindingResult result) {
         
         // If validation errors found
-        // if(result.hasErrors()){
-        //     return "register_form";
-        // }
+        if(result.hasErrors()){
+            return new ResponseEntity<Object>(result.getAllErrors().get(0).getDefaultMessage(), HttpStatus.BAD_REQUEST);        
+        }
 
         //If username already exists
-        // if(userService.existsByUsername(user.getUsername())){
-        //     Boolean usernameExists = true;
-        //     model.addAttribute("usernameExists", usernameExists);
-        //     return "register_form";
-        // }
+        if(userService.existsByUsername(user)){
+            return new ResponseEntity<Object>("Username already exists", HttpStatus.BAD_REQUEST);        
+        }
 
-        //If email already exists
-        // if(userService.existsByEmail(user.getEmail())){
-        //     Boolean emailExists = true;
-        //     model.addAttribute("emailExists", emailExists);
-        //     return "register_form";
-        // }
 
-        //Encrypt the password
-        userService.encryptPassword(user);
+        //Register user
+        userService.registerUser(user);
 
-        //Set enabled to 1
-        user.setEnabled(true);
-
-        //Save the user
-        userRepository.save(user);
-
-        //Set the authority and save it
-        authorityRepository.save(authorityService.setAuthority(role, user.getUsername()));
-
-        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+        return new ResponseEntity<Object>(user, HttpStatus.CREATED);
     }
     
     

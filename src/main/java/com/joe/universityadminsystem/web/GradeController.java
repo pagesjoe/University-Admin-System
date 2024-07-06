@@ -30,6 +30,7 @@ public class GradeController {
         Grade grade = gradeService.getGrade(studentId, courseId);
 
         model.addAttribute("grade", grade);
+        model.addAttribute("scores", Grade.scores);
         return "edit_grade";
     }
 

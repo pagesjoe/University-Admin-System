@@ -33,7 +33,7 @@ public class UserService {
 
 
 
-    public void registerUser(User user, String role){
+    public void registerUser(User user){
         //Encrypt the password
         encryptPassword(user);
 
@@ -44,7 +44,7 @@ public class UserService {
         userRepository.save(user);
 
         //Set the authority and save it
-        authorityService.saveAuthority(authorityService.setAuthority(role, user.getUsername()));
+        authorityService.saveAuthority(authorityService.setAuthority("ADMIN", user.getUsername()));
     }
 
 

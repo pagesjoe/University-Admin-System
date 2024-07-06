@@ -3,6 +3,7 @@ package com.joe.universityadminsystem.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +13,7 @@ import com.joe.universityadminsystem.entity.Course;
 import com.joe.universityadminsystem.service.CourseService;
 import com.joe.universityadminsystem.service.InstructorService;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,12 +29,29 @@ public class CourseController {
     CourseService courseService;
     InstructorService instructorService;
 
+
+    //Create
     @GetMapping("/add")
-    public String createCourse() {
+    public String createCourse(Model model) {
+        model.addAttribute("course", new Course());
         return "add_course";
     }
     
 
+    @PostMapping("/submitadd")
+    public String submitAddCourse(@Valid Course course, BindingResult result) {
+        // If validation errors found
+        if(result.hasErrors()){
+            return "add_course";
+        }
+
+        courseService.saveCourse(course);        
+        return "redirect:/course/all";
+    }
+
+
+
+    //Read
     @GetMapping("/all")
     public String getCourses(Model model) {
         model.addAttribute("courses", courseService.getCourses());
@@ -40,6 +59,8 @@ public class CourseController {
     }
     
 
+
+    //Update
     @GetMapping("/edit")
     public String updateCourse(@RequestParam int id, Model model) {
         model.addAttribute("course", courseService.getCourse(id));
@@ -48,13 +69,19 @@ public class CourseController {
 
 
 
-    @PostMapping("/submit")
-    public String submitCourse(Course course) {
+    @PostMapping("/submitedit")
+    public String submitEditCourse(@Valid Course course, BindingResult result) {
+        // If validation errors found
+        if(result.hasErrors()){
+            return "edit_course";
+        }
+
         courseService.saveCourse(course);        
         return "redirect:/course/all";
     }
 
 
+    //Delete
     @PostMapping("/delete")
     public String deleteCourse(@RequestParam int id) {
         courseService.deleteCourse(id);        

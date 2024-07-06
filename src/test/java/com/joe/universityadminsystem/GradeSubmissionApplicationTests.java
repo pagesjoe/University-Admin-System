@@ -1,4 +1,4 @@
-package com.ltp.gradesubmission;
+package com.joe.universityadminsystem;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

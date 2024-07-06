@@ -12,13 +12,15 @@
     <div class="container">
 		<h1 class="text-center">Add Student</h1>
 		<br>
-		<form th:action="@{/student/submit}" method="post">
+		<form th:object="${student}" th:action="@{/student/submitadd}" method="post">
 			<!-- <input type="hidden" name="command" value="add"> -->
 			<div class="form-group">
 			    <label>Name</label>
 			    <input name="name" class="form-control" placeholder="Name" required>
 		  </div>
+		  <div th:if="${#fields.hasErrors('name')}"><p style="color: red;" th:errors="*{name}"></p></div>
           <br>
+
 		  <div class="form-group">
 			    <label>Birthdate</label>
 			    <input name="birthdate" type="date" class="form-control" placeholder="Birthdate" required>

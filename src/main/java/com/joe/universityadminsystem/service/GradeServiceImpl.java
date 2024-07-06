@@ -1,7 +1,10 @@
 package com.joe.universityadminsystem.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.swing.text.html.Option;
 
@@ -59,7 +62,7 @@ public class GradeServiceImpl implements GradeService {
         grade.setStudent(student);
         grade.setCourse(course);
 
-        //Try saving the grade, or throw duplicate grade exception
+        //Try saving the grade, or catch duplicate grade exception
         try{
                 grade = gradeRepository.save(grade);
             }catch(Exception e){
@@ -115,4 +118,32 @@ public class GradeServiceImpl implements GradeService {
         throw new GradeNotFoundException(studentId, courseId);
     }
 
+
+    public boolean gradeExists(Course course, Student student){
+        return gradeRepository.existsByCourseAndStudent(course, student);
+    }
+
+
+
+    public Set<Course> getStudentUngradedCourses(int studentId){
+
+        //Get enrolled courses
+        Student student = studentService.getStudent(studentId);
+        Set<Course> enrolledCourses = student.getCourses();
+
+        //Copying the courses set
+        Set<Course> ungradedCourses = new HashSet<>();
+        for(Course course : enrolledCourses){
+            ungradedCourses.add(course);
+        }
+
+        //remove graded courses
+        for(Course course : enrolledCourses){
+            if(gradeExists(course, student)){
+                ungradedCourses.remove(course);
+            }
+        }
+
+        return ungradedCourses;
+    }
 }
