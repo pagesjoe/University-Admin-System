@@ -37,10 +37,12 @@ public class UserController {
 
 
     @GetMapping("/login")
-    public String getLoginForm() {
+    public String getLoginForm(HttpServletRequest request) {
+
         return "login";
     }
 
+    
 
     @GetMapping("/register")
     public String getRegisterForm(Model model) {

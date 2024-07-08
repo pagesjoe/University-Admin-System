@@ -2,6 +2,7 @@ package com.joe.universityadminsystem.security;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -15,6 +16,9 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfiguration {
+
+    @Autowired
+    CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
     @Bean
     @Order(1)
@@ -48,7 +52,8 @@ public class SecurityConfiguration {
             .formLogin(form -> form
                 .loginPage("/user/login")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/", true)
+                .successHandler(customAuthenticationSuccessHandler)
+                // .defaultSuccessUrl("/", true)
             )
             .logout(logout -> logout
                 .logoutSuccessUrl("/")
