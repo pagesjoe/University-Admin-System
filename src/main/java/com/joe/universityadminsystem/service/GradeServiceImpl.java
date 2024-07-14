@@ -34,21 +34,8 @@ public class GradeServiceImpl implements GradeService {
     CourseService courseService;
 
 
-    @Override
-    public Grade getGrade(int studentId, int courseId) {
-        Optional<Grade> grade = gradeRepository.findByStudentIdAndCourseId(studentId, courseId);
-        return unwrapGrade(grade, studentId, courseId);
-    }
 
-
-
-    @Override
-    public List<Grade> getAllGrades() {
-        return gradeRepository.findAll();
-    }
-
-
-
+    //Create
     @Override
     public Grade saveGrade(Grade grade, int studentId, int courseId) {
         //Get student and course by id
@@ -74,6 +61,24 @@ public class GradeServiceImpl implements GradeService {
 
 
 
+    //Read
+    @Override
+    public Grade getGrade(int studentId, int courseId) {
+        Optional<Grade> grade = gradeRepository.findByStudentIdAndCourseId(studentId, courseId);
+        return unwrapGrade(grade, studentId, courseId);
+    }
+
+
+
+    @Override
+    public List<Grade> getAllGrades() {
+        return gradeRepository.findAll();
+    }
+
+
+
+
+    //Update
     @Override
     public Grade updateGrade(String score, int studentId, int courseId) {
         //Get the grade
@@ -89,6 +94,7 @@ public class GradeServiceImpl implements GradeService {
 
 
 
+    //Delete
     @Override
     public void deleteGrade(int studentId, int courseId) {
         gradeRepository.deleteByStudentIdAndCourseId(studentId, courseId);
@@ -117,6 +123,8 @@ public class GradeServiceImpl implements GradeService {
         }
         throw new GradeNotFoundException(studentId, courseId);
     }
+
+
 
 
     public boolean gradeExists(Course course, Student student){

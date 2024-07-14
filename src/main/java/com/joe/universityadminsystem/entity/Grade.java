@@ -3,6 +3,7 @@ package com.joe.universityadminsystem.entity;
 import java.util.Arrays;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.joe.universityadminsystem.validation.Score;
 
 import io.swagger.v3.oas.annotations.Hidden;
@@ -35,10 +36,12 @@ public class Grade {
     private String score;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "student_id")
     private Student student;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "course_id")
     private Course course;
 
@@ -51,4 +54,12 @@ public class Grade {
         "F"
     );
 
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Grade other = (Grade) obj;
+        return (other.id == this.id && other.course.getId() == this.course.getId() && other.student.getId() == this.student.getId()) ;
+    }
 }

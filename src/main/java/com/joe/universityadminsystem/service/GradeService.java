@@ -1,6 +1,7 @@
 package com.joe.universityadminsystem.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
@@ -19,5 +20,6 @@ public interface GradeService {
     List<Grade> getAllGrades();
     boolean gradeExists(Course course, Student student);
     Set<Course> getStudentUngradedCourses(int id);
+    Grade unwrapGrade(Optional<Grade> grade, int studentId, int courseId);
 
 }
